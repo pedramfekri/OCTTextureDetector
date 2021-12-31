@@ -52,7 +52,7 @@ def visualization(data):
     plt.show()
 
 
-def classDivider():
+def class_divider():
     data = pd.read_csv('csv/clean.csv')
     print('min = ', data['label'].min(), 'max = ', data['label'].max())
     class0 = data.loc[data['label'] == 0]
@@ -72,8 +72,40 @@ def classDivider():
     print('csvs saved!')
 
 
+def data_preparation():
+    class0 = pd.read_csv('csv/class0.csv')
+    class1 = pd.read_csv('csv/class1.csv')
+    class2 = pd.read_csv('csv/class2.csv')
+    class3 = pd.read_csv('csv/class3.csv')
+    class4 = pd.read_csv('csv/class4.csv')
+    train_df = pd.concat([class0.iloc[0: int(class0.shape[0] * 0.7), :],
+                          class1.iloc[0: int(class1.shape[0] * 0.7), :],
+                          class2.iloc[0: int(class2.shape[0] * 0.7), :],
+                          class3.iloc[0: int(class3.shape[0] * 0.7), :],
+                          class4.iloc[0: int(class4.shape[0] * 0.7), :],
+                         ])
+
+    '''
+    val_df = pd.concat([class0.iloc[int(class0.shape[0] * 0.7): int(class0.shape[0] * 0.85), :],
+                        class1.iloc[int(class1.shape[0] * 0.7): int(class1.shape[0] * 0.85), :],
+                        class2.iloc[int(class2.shape[0] * 0.7): int(class2.shape[0] * 0.85), :],
+                        class3.iloc[int(class3.shape[0] * 0.7): int(class3.shape[0] * 0.85), :],
+                        class4.iloc[int(class4.shape[0] * 0.7): int(class4.shape[0] * 0.85), :]
+                       ])
+    '''
+
+    test_df = pd.concat([class0.iloc[int(class0.shape[0] * 0.7):, :],
+                         class1.iloc[int(class1.shape[0] * 0.7):, :],
+                         class2.iloc[int(class2.shape[0] * 0.7):, :],
+                         class3.iloc[int(class3.shape[0] * 0.7):, :],
+                         class4.iloc[int(class4.shape[0] * 0.7):, :],
+                        ])
+    return train_df, test_df
+
+
 if __name__ == '__main__':
-    data = pd.read_csv('csv/class0.csv')
-    visualization(data)
+    # data = pd.read_csv('csv/class0.csv')
+    train, test = data_preparation()
+    visualization(test)
     # clean()
-    # classDivider()
+    # class_divider()
