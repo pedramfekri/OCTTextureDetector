@@ -1,3 +1,13 @@
+'''
+The order of executing the function is as follows:
+1- clean()
+2- class_divider()
+3- data_preparation()
+4- data_windowing()
+
+please note that visualization and data_windowing_checker are meant to check the
+results
+'''
 import pandas as pd
 import numpy as np
 from matplotlib import pyplot as plt
@@ -60,6 +70,26 @@ def class_divider():
     class2 = data.loc[data['label'] == 2]
     class3 = data.loc[data['label'] == 3]
     class4 = data.loc[data['label'] == 4]
+
+    print('class0 = ', class0.shape, 'class1 = ', class1.shape,
+          'class2 = ', class2.shape, 'class3 = ', class3.shape,
+          'class4 = ', class4.shape)
+
+    # print(class0.loc[(class0['x1'] == 0) & (class0['x2'] == 0) & (class0['y1'] == 0) & (class0['y2'] == 0)].index)
+    class0 = class0.drop(class0.loc[(class0['x1'] == 0) & (class0['x2'] == 0) &
+                                    (class0['y1'] == 0) & (class0['y2'] == 0)].index)
+
+    class1 = class1.drop(class1.loc[(class1['x1'] == 0) & (class1['x2'] == 0) &
+                                    (class1['y1'] == 0) & (class1['y2'] == 0)].index)
+
+    class2 = class2.drop(class2.loc[(class2['x1'] == 0) & (class2['x2'] == 0) &
+                                    (class2['y1'] == 0) & (class2['y2'] == 0)].index)
+
+    class3 = class3.drop(class3.loc[(class3['x1'] == 0) & (class3['x2'] == 0) &
+                                    (class3['y1'] == 0) & (class3['y2'] == 0)].index)
+
+    class4 = class4.drop(class4.loc[(class4['x1'] == 0) & (class4['x2'] == 0) &
+                                    (class4['y1'] == 0) & (class4['y2'] == 0)].index)
 
     print('class0 = ', class0.shape, 'class1 = ', class1.shape,
           'class2 = ', class2.shape, 'class3 = ', class3.shape,
@@ -130,7 +160,8 @@ if __name__ == '__main__':
     for i in range(100):
         print(next(d))
 
-
-    # visualization(test)
+    # visualization(train)
     # clean()
     # class_divider()
+
+
