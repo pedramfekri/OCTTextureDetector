@@ -103,9 +103,34 @@ def data_preparation():
     return train_df, test_df
 
 
+def data_windowing(data, seq):
+    len = data.shape[0]
+    print(len)
+    x, y = [], []
+    for i in range(len - (seq - 1)):
+        x.append(data.iloc[i: i + seq, 0:-1].values)
+        y.append(data.iloc[0, -1])
+    x = np.array(x)
+    y = np.array(y)
+    print('shape x: ', x.shape, ' shape y: ', y.shape)
+    return x, y
+
+
+def data_windowing_checker(data):
+    print('data_shape:', data.shape)
+    for i in range(data.shape[0]):
+        yield data[i, ...]
+
+
 if __name__ == '__main__':
     # data = pd.read_csv('csv/class0.csv')
     train, test = data_preparation()
-    visualization(test)
+    x, y = data_windowing(train, 20)
+    d = data_windowing_checker(x)
+    for i in range(100):
+        print(next(d))
+
+
+    # visualization(test)
     # clean()
     # class_divider()
