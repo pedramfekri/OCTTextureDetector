@@ -139,7 +139,7 @@ def data_windowing(data, seq):
     x, y = [], []
     for i in range(len - (seq - 1)):
         x.append(data.iloc[i: i + seq, 0:-1].values)
-        y.append(data.iloc[0, -1])
+        y.append(data.iloc[i, -1])
     x = np.array(x)
     y = np.array(y)
     print('shape x: ', x.shape, ' shape y: ', y.shape)

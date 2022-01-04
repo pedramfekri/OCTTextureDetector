@@ -2,6 +2,7 @@ import tensorflow as tf
 from Dataset import dataset as data
 from Model import model as mdl
 from datetime import datetime
+import numpy as np
 
 MAX_EPOCHS = 200
 
@@ -41,6 +42,6 @@ if __name__ == '__main__':
     x_train, y_train = data.data_windowing(train, time_step)
     x_test, y_test = data.data_windowing(test, time_step)
 
-    print(y_train)
+    print(np.unique(y_train))
     # model = mdl.lstm_classification([32], [16], time_step, 4, 5)
     # fit(model, x_train, y_train)
