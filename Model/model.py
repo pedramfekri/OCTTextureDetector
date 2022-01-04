@@ -28,10 +28,10 @@ def lstm_classification(lstm_unit, dense, time, features, cls, drop=False):
         model.add(tf.keras.layers.Dropout(0.5))
     model.add(tf.keras.layers.Dense(cls))
 
-    optimizer = tf.keras.optimizers.RMSprop(0.001)
+    optimizer = tf.optimizers.RMSprop(learning_rate=0.001, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False)
 
     # Note: from_logits=True means the output layer does not apply softmax or the outputs are not normal
-    model.compile(loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
+    model.compile(loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
                   optimizer=optimizer,
                   metrics=['accuracy'])
 
