@@ -102,12 +102,12 @@ def class_divider():
     print('csvs saved!')
 
 
-def data_preparation():
-    class0 = pd.read_csv('csv/class0.csv')
-    class1 = pd.read_csv('csv/class1.csv')
-    class2 = pd.read_csv('csv/class2.csv')
-    class3 = pd.read_csv('csv/class3.csv')
-    class4 = pd.read_csv('csv/class4.csv')
+def data_preparation(path):
+    class0 = pd.read_csv(path + 'csv/class0.csv')
+    class1 = pd.read_csv(path + 'csv/class1.csv')
+    class2 = pd.read_csv(path + 'csv/class2.csv')
+    class3 = pd.read_csv(path + 'csv/class3.csv')
+    class4 = pd.read_csv(path + 'csv/class4.csv')
     train_df = pd.concat([class0.iloc[0: int(class0.shape[0] * 0.7), :],
                           class1.iloc[0: int(class1.shape[0] * 0.7), :],
                           class2.iloc[0: int(class2.shape[0] * 0.7), :],
@@ -152,16 +152,16 @@ def data_windowing_checker(data):
         yield data[i, ...]
 
 
-if __name__ == '__main__':
-    # data = pd.read_csv('csv/class0.csv')
-    train, test = data_preparation()
-    x, y = data_windowing(train, 20)
-    d = data_windowing_checker(x)
-    for i in range(100):
-        print(next(d))
 
-    # visualization(train)
-    # clean()
-    # class_divider()
-
-
+# if __name__ == '__main__':
+#    # data = pd.read_csv('csv/class0.csv')
+#    train, test = data_preparation()
+#    '''
+#    x, y = data_windowing(train, 20)
+#    d = data_windowing_checker(x)
+#    for i in range(100):
+#        print(next(d))
+#    '''
+#    visualization(train)
+#    # clean()
+#    # class_divider()

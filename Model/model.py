@@ -40,6 +40,7 @@ def lstm_classification(lstm_unit, dense, time, features, cls, drop=False):
 
     return model
 
-
+'''
 if __name__ == '__main__':
     lstm_classification([64, 32, 16], [32, 32, 16, 16], 20, 4, 5, drop=False)
+'''
