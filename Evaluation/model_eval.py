@@ -24,3 +24,4 @@ if __name__ == '__main__':
 
     print(np.unique(y_train))
     model = mdl.lstm_classification([32], [16, 8], time_step, 4, 3, drop=False)
+    evl(model, x_test, y_test)
