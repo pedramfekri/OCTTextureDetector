@@ -76,6 +76,7 @@ def class_divider():
           'class4 = ', class4.shape)
 
     # print(class0.loc[(class0['x1'] == 0) & (class0['x2'] == 0) & (class0['y1'] == 0) & (class0['y2'] == 0)].index)
+
     class0 = class0.drop(class0.loc[(class0['x1'] == 0) & (class0['x2'] == 0) &
                                     (class0['y1'] == 0) & (class0['y2'] == 0)].index)
 
@@ -108,12 +109,20 @@ def data_preparation(path):
     class2 = pd.read_csv(path + 'csv/class2.csv')
     class3 = pd.read_csv(path + 'csv/class3.csv')
     class4 = pd.read_csv(path + 'csv/class4.csv')
+    '''
     train_df = pd.concat([class0.iloc[0: int(class0.shape[0] * 0.7), :],
                           class1.iloc[0: int(class1.shape[0] * 0.7), :],
-                          class2.iloc[0: int(class2.shape[0] * 0.7), :],
+                          # class2.iloc[0: int(class2.shape[0] * 0.65), :],
                           class3.iloc[0: int(class3.shape[0] * 0.7), :],
                           class4.iloc[0: int(class4.shape[0] * 0.7), :],
                          ])
+                         '''
+    train_df = pd.concat([# class0.iloc[int(class0.shape[0] * 0.3):, :],
+                          class1.iloc[int(class1.shape[0] * 0.3):, :],
+                          # class2.iloc[0: int(class2.shape[0] * 0.65), :],
+                          class3.iloc[int(class3.shape[0] * 0.3):, :],
+                          class4.iloc[int(class4.shape[0] * 0.3):, :],
+                          ])
 
     '''
     val_df = pd.concat([class0.iloc[int(class0.shape[0] * 0.7): int(class0.shape[0] * 0.85), :],
@@ -124,11 +133,11 @@ def data_preparation(path):
                        ])
     '''
 
-    test_df = pd.concat([class0.iloc[int(class0.shape[0] * 0.7):, :],
-                         class1.iloc[int(class1.shape[0] * 0.7):, :],
-                         class2.iloc[int(class2.shape[0] * 0.7):, :],
-                         class3.iloc[int(class3.shape[0] * 0.7):, :],
-                         class4.iloc[int(class4.shape[0] * 0.7):, :],
+    test_df = pd.concat([# class0.iloc[0: int(class0.shape[0] * 0.3), :],
+                         class1.iloc[0: int(class1.shape[0] * 0.3), :],
+                         # class2.iloc[int(class2.shape[0] * 0.65):, :],
+                         class3.iloc[0: int(class3.shape[0] * 0.3), :],
+                         class4.iloc[0: int(class4.shape[0] * 0.3), :],
                         ])
     return train_df, test_df
 
@@ -139,7 +148,12 @@ def data_windowing(data, seq):
     x, y = [], []
     for i in range(len - (seq - 1)):
         x.append(data.iloc[i: i + seq, 0:-1].values)
-        y.append(data.iloc[i, -1])
+        if data.iloc[i, -1] == 1:
+            y.append(0)
+        elif data.iloc[i, -1] == 3:
+            y.append(1)
+        elif data.iloc[i, -1] == 4:
+            y.append(2)
     x = np.array(x)
     y = np.array(y)
     print('shape x: ', x.shape, ' shape y: ', y.shape)
@@ -152,16 +166,15 @@ def data_windowing_checker(data):
         yield data[i, ...]
 
 
-
-# if __name__ == '__main__':
-#    # data = pd.read_csv('csv/class0.csv')
-#    train, test = data_preparation()
-#    '''
-#    x, y = data_windowing(train, 20)
-#    d = data_windowing_checker(x)
-#    for i in range(100):
-#        print(next(d))
-#    '''
-#    visualization(train)
-#    # clean()
-#    # class_divider()
+#if __name__ == '__main__':
+#   data = pd.read_csv('csv/class2.csv')
+#   train, test = data_preparation('')
+#   '''
+#   x, y = data_windowing(train, 20)
+#   d = data_windowing_checker(x)
+#   for i in range(100):
+#       print(next(d))
+#   '''
+#   visualization(data)
+#   # clean()
+#   # class_divider()
