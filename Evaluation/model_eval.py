@@ -13,6 +13,9 @@ def evl(model, x_test, y_test):
     model.load_weights(checkpoint_path + '50.hdf5')
     print('model was loaded successfully')
     model.evaluate(x=x_test, y=y_test)
+    pred = model.predict(x_test)
+    confusion = tf.math.confusion_matrix(pred, y_test)
+    print(confusion)
 
 
 if __name__ == '__main__':
