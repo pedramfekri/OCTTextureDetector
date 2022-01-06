@@ -6,7 +6,7 @@ import numpy as np
 i = 0
 
 
-def extractor(path_train, path_test, dim):
+def extractor(path_train, path_test, dim=4):
     train1 = summary_iterator(path_train)
     test1 = summary_iterator(path_test)
     '''
@@ -32,17 +32,17 @@ def extractor(path_train, path_test, dim):
         # print(e.step)
         for v in e.summary.value:
             if v.tag == 'epoch_accuracy':
-                data[e.step, 3] = v.simple_value
+                data[e.step, 2] = v.simple_value
             elif v.tag == 'epoch_loss':
-                data[e.step, 4] = v.simple_value
+                data[e.step, 3] = v.simple_value
             else:
                 pass
 
     return data
 
 
-path_train1 = '../Train/logs/fit/20211201-202144/train/events.out.tfevents.1638408105.pedram-Z97M-DS3H.49764.15512.v2'
-path_test1 = '../Train/logs/fit/20211201-202144/validation/events.out.tfevents.1638408311.pedram-Z97M-DS3H.49764.3208897.v2'
+path_train1 = '../Train/logs/fit/20220106-123415/train/events.out.tfevents.1641490455.pedram-Z97M-DS3H.22914.625.v2'
+path_test1 = '../Train/logs/fit/20220106-123415/validation/events.out.tfevents.1641490459.pedram-Z97M-DS3H.22914.3729.v2'
 data1 = extractor(path_train1, path_test1)
 numpy.savetxt('model1.csv', data1, delimiter=',')
 print('first done')
@@ -50,32 +50,12 @@ print('first done')
 # print('hi')
 # print(dtest1)
 
-path_train2 = '../Train/logs/fit/20211201-141242/train/events.out.tfevents.1638385963.pedram-Z97M-DS3H.47692.15960.v2'
-path_test2 = '../Train/logs/fit/20211201-141242/validation/events.out.tfevents.1638386174.pedram-Z97M-DS3H.47692.3210637.v2'
+
+path_train2 = '../Train/logs/fit/20220106-123122/train/events.out.tfevents.1641490282.pedram-Z97M-DS3H.22550.625.v2'
+path_test2 = '../Train/logs/fit/20220106-123122/validation/events.out.tfevents.1641490287.pedram-Z97M-DS3H.22550.3717.v2'
 data2 = extractor(path_train2, path_test2)
 numpy.savetxt('model2.csv', data2, delimiter=',')
 print('second done')
-# print(dtrain2)
-# print('hi')
-# print(dtest2)
-
-path_train3 = '../Train/logs/fit/20211201-085152/train/events.out.tfevents.1638366713.pedram-Z97M-DS3H.43956.15736.v2'
-path_test3 = '../Train/logs/fit/20211201-085152/validation/events.out.tfevents.1638366927.pedram-Z97M-DS3H.43956.3209767.v2'
-data3 = extractor(path_train3, path_test3)
-numpy.savetxt('model3.csv', data3, delimiter=',')
-print('third done')
 # print(dtrain3)
 # print('hi')
 # print(dtest3)
-
-path_train4 = '../Train/logs/fit/20211201-000721/train/events.out.tfevents.1638335242.pedram-Z97M-DS3H.38303.592.v2'
-path_test4 = '../Train/logs/fit/20211201-000721/validation/events.out.tfevents.1638335325.pedram-Z97M-DS3H.38303.3223.v2'
-data4 = extractor(path_train4, path_test4)
-numpy.savetxt('model4.csv', data4, delimiter=',')
-print('fourth done')
-
-path_train5 = '../Train/logs/fit/20211130-203724/train/events.out.tfevents.1638322645.pedram-Z97M-DS3H.36819.816.v2'
-path_test5 = '../Train/logs/fit/20211130-203724/validation/events.out.tfevents.1638322729.pedram-Z97M-DS3H.36819.4093.v2'
-data5 = extractor(path_train5, path_test5)
-numpy.savetxt('model5.csv', data5, delimiter=',')
-print('fifth done')
