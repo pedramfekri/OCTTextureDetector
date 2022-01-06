@@ -46,5 +46,6 @@ if __name__ == '__main__':
     x_test, y_test = data.data_windowing(test, time_step)
 
     print(np.unique(y_train))
-    model = mdl.lstm_classification([32], [16, 8], time_step, 4, 3, drop=False)
+    # model = mdl.lstm_classification([32], [16, 8], time_step, 4, 3, drop=False)
+    model = mdl.rnn_classification([32], [16, 8], time_step, 4, 3, drop=False)
     fit(model, x_train, y_train, x_test, y_test)
