@@ -13,6 +13,16 @@ def evl(model, x_test, y_test):
     model.load_weights(checkpoint_path + '50.hdf5')
     print('model was loaded successfully')
     model.evaluate(x=x_test, y=y_test)
+    pred = []
+    for i in range(x_test.shape[0]):
+        sample = x_test[i]
+        sample = sample[np.newaxis, ...]
+        r = np.argmax(model.predict(sample))
+        print(i, ' == ', r)
+        pred.append(r)
+    print(pred)
+    confusion = tf.math.confusion_matrix(pred, y_test)
+    print(confusion)
 
 
 if __name__ == '__main__':
@@ -22,5 +32,6 @@ if __name__ == '__main__':
     x_train, y_train = data.data_windowing(train, time_step)
     x_test, y_test = data.data_windowing(test, time_step)
 
-    print(np.unique(y_train))
+    print(np.unique(y_train), np.unique(y_test))
     model = mdl.lstm_classification([32], [16, 8], time_step, 4, 3, drop=False)
+    evl(model, x_test, y_test)
