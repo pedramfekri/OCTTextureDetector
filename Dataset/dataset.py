@@ -166,8 +166,8 @@ def data_windowing_checker(data):
         yield data[i, ...]
 
 
-#if __name__ == '__main__':
-#   data = pd.read_csv('csv/class2.csv')
+if __name__ == '__main__':
+   data = pd.read_csv('csv/class3.csv')
 #   train, test = data_preparation('')
 #   '''
 #   x, y = data_windowing(train, 20)
@@ -175,6 +175,6 @@ def data_windowing_checker(data):
 #   for i in range(100):
 #       print(next(d))
 #   '''
-#   visualization(data)
+   visualization(data)
 #   # clean()
 #   # class_divider()
