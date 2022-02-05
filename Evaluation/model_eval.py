@@ -3,6 +3,8 @@ from Dataset import dataset as data
 from Model import model as mdl
 from datetime import datetime
 import numpy as np
+import seaborn as sns; sns.set_theme()
+import matplotlib.pyplot as plt
 
 MAX_EPOCHS = 50
 
@@ -18,6 +20,8 @@ def evl(model, x_test, y_test):
     print(pred)
     confusion = tf.math.confusion_matrix(pred, y_test)
     print(confusion)
+    ax = sns.heatmap(confusion)
+    plt.show()
 
 
 if __name__ == '__main__':
