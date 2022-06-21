@@ -80,6 +80,7 @@ def rnn_classification(rnn_unit, dense, time, features, cls, drop=False):
 
     # optimizer = tf.optimizers.RMSprop(learning_rate=0.0001, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False)
     # optimizer = tf.optimizers.Adam(learning_rate=0.001)
+
     optimizer = tf.optimizers.SGD(lr=0.00005, momentum=0.9, clipnorm=0.5)
 
     # Note: from_logits=True means the output layer does not apply softmax or the outputs are not normal
