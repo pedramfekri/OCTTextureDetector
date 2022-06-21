@@ -10,17 +10,23 @@ def lstm_classification(lstm_unit, dense, time, features, cls, drop=False):
     model.add(tf.keras.layers.Input(shape=(time, features)))
     if l == 1:
         model.add(tf.keras.layers.LSTM(lstm_unit[0], return_sequences=False))
+        if drop:
+            model.add(tf.keras.layers.BatchNormalization())
     else:
         i = 1
         for layer in lstm_unit:
             if i == l:
                 model.add(tf.keras.layers.LSTM(layer, return_sequences=False))
+                if drop:
+                    model.add(tf.keras.layers.BatchNormalization())
             else:
                 model.add(tf.keras.layers.LSTM(layer, return_sequences=True))
             i = i + 1
 
     if l_dense == 1:
         model.add(tf.keras.layers.Dense(dense[0], activation='relu'))
+        if drop:
+            model.add(tf.keras.layers.BatchNormalization())
     else:
         i = 0
         for layer in dense:
@@ -30,8 +36,9 @@ def lstm_classification(lstm_unit, dense, time, features, cls, drop=False):
             model.add(tf.keras.layers.Dense(layer, activation='relu'))
 
     if drop:
-        model.add(tf.keras.layers.Dropout(0.2))
-    model.add(tf.keras.layers.BatchNormalization())
+        # model.add(tf.keras.layers.Dropout(0.2))
+        model.add(tf.keras.layers.BatchNormalization())
+    # model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Dense(cls))
 
     # optimizer = tf.optimizers.RMSprop(learning_rate=0.0001, rho=0.9, momentum=0.0, epsilon=1e-07, centered=False)

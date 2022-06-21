@@ -5,7 +5,7 @@ from datetime import datetime
 import numpy as np
 import matplotlib.pyplot as plt
 import json
-MAX_EPOCHS = 15
+MAX_EPOCHS = 50
 
 
 def fit(model, x_train, y_train, x_test, y_test, x_val, y_val, model_name):
@@ -23,7 +23,7 @@ def fit(model, x_train, y_train, x_test, y_test, x_val, y_val, model_name):
                         epochs=MAX_EPOCHS,
                         batch_size=64,
                         validation_data=(x_val, y_val),
-                        callbacks=[cp_callback, tensorboard_callback]
+                        # callbacks=[cp_callback, tensorboard_callback]
                         )
     model.trainable = False
     model.evaluate(x=x_test, y=y_test)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     print('val= ', x_val.min(), x_val.max())
 
     print(np.unique(y_train))
-    model = mdl.lstm_classification([32], [16, 8], time_step, 4, 3, drop=False)
+    model = mdl.lstm_classification([32], [16, 8], time_step, 4, 5, drop=True)
     model_name = 'NEWLSTM_[32][16,8]_'
     # model_name = 'LSTM_[32][16,8]_t10_'
 

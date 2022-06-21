@@ -88,9 +88,9 @@ def class_divider():
     print('min = ', data['label'].min(), 'max = ', data['label'].max())
     class0 = data.loc[data['label'] == 0]
     class1 = data.loc[data['label'] == 1]
-    # class2 = data.loc[data['label'] == 2]
-    # class3 = data.loc[data['label'] == 2] be aware of class label
-    class4 = data.loc[data['label'] == 2]
+    class2 = data.loc[data['label'] == 2]
+    class3 = data.loc[data['label'] == 3] # be aware of class label
+    class4 = data.loc[data['label'] == 4]
 
     '''print('class0 = ', class0.shape, 'class1 = ', class1.shape,
           'class2 = ', class2.shape, 'class3 = ', class3.shape,
@@ -104,11 +104,11 @@ def class_divider():
     class1 = class1.drop(class1.loc[(class1['x1'] == 0) & (class1['x2'] == 0) &
                                     (class1['y1'] == 0) & (class1['y2'] == 0)].index)
 
-    # class2 = class2.drop(class2.loc[(class2['x1'] == 0) & (class2['x2'] == 0) &
-    #                                (class2['y1'] == 0) & (class2['y2'] == 0)].index)
+    class2 = class2.drop(class2.loc[(class2['x1'] == 0) & (class2['x2'] == 0) &
+                                   (class2['y1'] == 0) & (class2['y2'] == 0)].index)
 
-    # class3 = class3.drop(class3.loc[(class3['x1'] == 0) & (class3['x2'] == 0) &
-    #                                 (class3['y1'] == 0) & (class3['y2'] == 0)].index)
+    class3 = class3.drop(class3.loc[(class3['x1'] == 0) & (class3['x2'] == 0) &
+                                    (class3['y1'] == 0) & (class3['y2'] == 0)].index)
 
     class4 = class4.drop(class4.loc[(class4['x1'] == 0) & (class4['x2'] == 0) &
                                     (class4['y1'] == 0) & (class4['y2'] == 0)].index)
@@ -118,8 +118,8 @@ def class_divider():
     #      'class4 = ', class4.shape)
     class0.to_csv('csv/class0.csv', index=False)
     class1.to_csv('csv/class1.csv', index=False)
-    # class2.to_csv('csv/class2.csv', index=False)
-    # class3.to_csv('csv/class3.csv', index=False)
+    class2.to_csv('csv/class2.csv', index=False)
+    class3.to_csv('csv/class3.csv', index=False)
     class4.to_csv('csv/class4.csv', index=False)
     print('csvs saved!')
 
@@ -127,11 +127,11 @@ def class_divider():
 def data_preparation(path):
     class0 = pd.read_csv(path + 'csv/class0.csv')
     class1 = pd.read_csv(path + 'csv/class1.csv')
-    # class2 = pd.read_csv(path + 'csv/class2.csv')
-    # class3 = pd.read_csv(path + 'csv/class3.csv')
+    class2 = pd.read_csv(path + 'csv/class2.csv')
+    class3 = pd.read_csv(path + 'csv/class3.csv')
     class4 = pd.read_csv(path + 'csv/class4.csv')
-    data = [class0, class1, class4]
-    x, y = data_windowing(data, 150)
+    data = [class0, class1, class2, class3, class4]
+    x, y = data_windowing(data, 50)
 
     train_x = x[0: int(x.shape[0] * 0.7), ...]
     train_y = y[0: int(x.shape[0] * 0.7), ...]
