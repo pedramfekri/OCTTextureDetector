@@ -18,7 +18,7 @@ def evl(model, x_test, y_test):
         sample = x_test[i]
         sample = sample[np.newaxis, ...]
         r = np.argmax(model.predict(sample))
-        print(i, ' == ', r)
+        # print(i, ' == ', r)
         pred.append(r)
     print(pred)
     confusion = tf.math.confusion_matrix(pred, y_test)
